@@ -1,0 +1,49 @@
+{
+  "count": 6,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 4,
+      "name": "children",
+      "read_only": false,
+      "supported_contact": false,
+      "supported_child": false
+    },
+    {
+      "id": 10,
+      "name": "123",
+      "read_only": false,
+      "supported_contact": false,
+      "supported_child": false
+    },
+    {
+      "id": 11,
+      "name": "asdfghjkl",
+      "read_only": true,
+      "supported_contact": false,
+      "supported_child": false
+    },
+    {
+      "id": 12,
+      "name": "asdfghj34567890kl",
+      "read_only": true,
+      "supported_contact": false,
+      "supported_child": false
+    },
+    {
+      "id": 13,
+      "name": "aHBASHBAJHSBDsdfghj34567890kl",
+      "read_only": true,
+      "supported_contact": false,
+      "supported_child": false
+    },
+    {
+      "id": 14,
+      "name": "1l",
+      "read_only": true,
+      "supported_contact": false,
+      "supported_child": false
+    }
+  ]
+}
