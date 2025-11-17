@@ -1,8 +1,5 @@
 import { useState } from "react";
-
-const API_URL = "http://25.61.210.232:8000/api/rest/v2/pipeline/";
-const TOKEN =
-  "350a09095fdcb7731b7c26145c0ada3edc026b4e865ff8c0004c95b60cb802c99a1031c3de4a6a394a963aa5c592ff74feb5e76186cfdc995b4a91ede9c5b9e0";
+import { API } from "./API/api";
 
 export default function EditRecord({ item, onSave, onCancel }) {
   const [form, setForm] = useState({
@@ -11,7 +8,7 @@ export default function EditRecord({ item, onSave, onCancel }) {
     supported_contact: item.supported_contact,
     supported_child: item.supported_child,
   });
-  const [loading, setLoading] = useState(false);
+  const [ loading, setLoading ] = useState();
   const [status, setStatus] = useState("");
 
   const handleChange = (e) => {
@@ -27,10 +24,10 @@ export default function EditRecord({ item, onSave, onCancel }) {
     setStatus("Сохранение...");
 
     try {
-      const res = await fetch(`${API_URL}${item.id}/`, {
+      const res = await fetch(`${API.URL}${item.id}/`, {
         method: "PATCH",
         headers: {
-          Authorization: `Token ${TOKEN}`,
+          Authorization: `Token ${API.TOKEN}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(form),

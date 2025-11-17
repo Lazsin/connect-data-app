@@ -1,8 +1,5 @@
 import { useState } from "react";
-
-const API_URL = "http://25.61.210.232:8000/api/rest/v2/pipeline/";
-const TOKEN =
-  "350a09095fdcb7731b7c26145c0ada3edc026b4e865ff8c0004c95b60cb802c99a1031c3de4a6a394a963aa5c592ff74feb5e76186cfdc995b4a91ede9c5b9e0";
+import { API } from "./API/api";
 
 export default function AddRecord({ onAdd }) {
   const [name, setName] = useState("");
@@ -10,7 +7,7 @@ export default function AddRecord({ onAdd }) {
   const [supported_contact, setSupportedContact] = useState(false);
   const [supported_child, setSupportedChild] = useState(false);
 
-  const [loading, setLoading] = useState(false);
+  const [ loading, setLoading ] = useState();
   const [status, setStatus] = useState("");
 
   const handleSubmit = async (e) => {
@@ -21,10 +18,10 @@ export default function AddRecord({ onAdd }) {
     setStatus("Добавление...");
 
     try {
-      const res = await fetch(API_URL, {
+      const res = await fetch(API.URL, {
         method: "POST",
         headers: {
-          Authorization: `Token ${TOKEN}`,
+          Authorization: `Token ${API.TOKEN}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -66,7 +63,7 @@ export default function AddRecord({ onAdd }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col md:flex-row gap-4 items-center mb-6 bg-gray-100 p-4 rounded-xl shadow"
+      className="flex flex-col gap-4 items-center mb-6 bg-gray-100 p-4 rounded-xl shadow"
     >
       <input
         type="text"

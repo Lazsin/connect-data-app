@@ -1,49 +1,147 @@
 {
-  "count": 6,
+  "count": 20,
   "next": null,
   "previous": null,
   "results": [
-    {
-      "id": 4,
-      "name": "children",
-      "read_only": false,
-      "supported_contact": false,
-      "supported_child": false
-    },
-    {
-      "id": 10,
-      "name": "123",
-      "read_only": false,
-      "supported_contact": false,
-      "supported_child": false
-    },
-    {
-      "id": 11,
-      "name": "asdfghjkl",
-      "read_only": true,
-      "supported_contact": false,
-      "supported_child": false
-    },
-    {
-      "id": 12,
-      "name": "asdfghj34567890kl",
-      "read_only": true,
-      "supported_contact": false,
-      "supported_child": false
-    },
-    {
-      "id": 13,
-      "name": "aHBASHBAJHSBDsdfghj34567890kl",
-      "read_only": true,
-      "supported_contact": false,
-      "supported_child": false
-    },
-    {
-      "id": 14,
-      "name": "1l",
-      "read_only": true,
-      "supported_contact": false,
-      "supported_child": false
-    }
-  ]
+  {
+    "id": 1,
+    "name": "default_contact",
+    "read_only": true,
+    "supported_contact": false,
+    "supported_child": false
+  },
+  {
+    "id": 2,
+    "name": "default_children",
+    "read_only": true,
+    "supported_contact": false,
+    "supported_child": false
+  },
+  {
+    "id": 3,
+    "name": "parent_info",
+    "read_only": false,
+    "supported_contact": true,
+    "supported_child": false
+  },
+  {
+    "id": 4,
+    "name": "children",
+    "read_only": false,
+    "supported_contact": false,
+    "supported_child": false
+  },
+  {
+    "id": 5,
+    "name": "emergency_contact",
+    "read_only": false,
+    "supported_contact": true,
+    "supported_child": false
+  },
+  {
+    "id": 6,
+    "name": "guardian",
+    "read_only": false,
+    "supported_contact": true,
+    "supported_child": false
+  },
+  {
+    "id": 7,
+    "name": "family_doctor",
+    "read_only": false,
+    "supported_contact": true,
+    "supported_child": false
+  },
+  {
+    "id": 8,
+    "name": "siblings",
+    "read_only": false,
+    "supported_contact": false,
+    "supported_child": true
+  },
+  {
+    "id": 9,
+    "name": "school_info",
+    "read_only": false,
+    "supported_contact": false,
+    "supported_child": true
+  },
+  {
+    "id": 10,
+    "name": "medical_history",
+    "read_only": false,
+    "supported_contact": false,
+    "supported_child": true
+  },
+  {
+    "id": 11,
+    "name": "vaccination_record",
+    "read_only": false,
+    "supported_contact": false,
+    "supported_child": true
+  },
+  {
+    "id": 12,
+    "name": "allergies",
+    "read_only": false,
+    "supported_contact": false,
+    "supported_child": true
+  },
+  {
+    "id": 13,
+    "name": "insurance",
+    "read_only": false,
+    "supported_contact": true,
+    "supported_child": false
+  },
+  {
+    "id": 14,
+    "name": "contact_preferences",
+    "read_only": false,
+    "supported_contact": true,
+    "supported_child": false
+  },
+  {
+    "id": 15,
+    "name": "additional_notes",
+    "read_only": false,
+    "supported_contact": false,
+    "supported_child": false
+  },
+  {
+    "id": 16,
+    "name": "employer",
+    "read_only": false,
+    "supported_contact": true,
+    "supported_child": false
+  },
+  {
+    "id": 17,
+    "name": "work_address",
+    "read_only": false,
+    "supported_contact": true,
+    "supported_child": false
+  },
+  {
+    "id": 18,
+    "name": "emergency_phone",
+    "read_only": false,
+    "supported_contact": true,
+    "supported_child": false
+  },
+  {
+    "id": 19,
+    "name": "school_grade",
+    "read_only": false,
+    "supported_contact": false,
+    "supported_child": true
+  },
+  {
+    "id": 20,
+    "name": "special_needs",
+    "read_only": false,
+    "supported_contact": false,
+    "supported_child": true
+  }
+]
 }

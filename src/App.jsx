@@ -2,22 +2,20 @@ import { useState, useEffect } from 'react';
 import './App.css'
 import AddRecord from './components/AddRecord';
 import RecordList from './components/RecordList';
-
-
-const API_URL = "http://25.61.210.232:8000/api/rest/v2/pipeline/";
-
-const TOKEN =
-  "350a09095fdcb7731b7c26145c0ada3edc026b4e865ff8c0004c95b60cb802c99a1031c3de4a6a394a963aa5c592ff74feb5e76186cfdc995b4a91ede9c5b9e0";
+import { API } from './components/API/api';
+import LoaderOverlay from './components/LoaderOverlay'
+import Pagination from './components/Pagination';
 
 
 
 // ✅ Простая и самодостаточная функция запроса
-async function fetchData(setData) {
+async function fetchData(setData, setLoading, page, pageSize) {
+  setLoading(true)
   try {
     //запрос на сервер
-    const res = await fetch(`${API_URL}?order_by=id`, {
+    const res = await fetch(`${API.URL}?order_by=id&page=${page}&page_size=${pageSize}`, {
       headers: {
-        Authorization: `Token ${TOKEN}`,
+        Authorization: `Token ${API.TOKEN}`,
         "Content-Type": "application/json",
       },
     });
@@ -31,16 +29,28 @@ async function fetchData(setData) {
     console.error("Ошибка запроса API, загружаем mock:", err);
 
     // fallback: загрузка БД из mock
-    try {
-      const mockRes = await fetch('/mock.json'); //Запрос в public для mock
-      if (!mockRes.ok) throw new Error('Ошибка загрузки mock.json');
-      const mockData = await mockRes.json(); //Записб mock в БД
-      setData(mockData);
+     try {
+      const mockRes = await fetch("/mock.json");
+      const mock = await mockRes.json();
+
+      const total = mock.results.length;
+
+      // --- РУЧНАЯ ПАГИНАЦИЯ ДЛЯ MOCK ---
+      const start = (page - 1) * pageSize;
+      const end = start + pageSize;
+
+      const paginated = {
+        count: total,
+        results: mock.results.slice(start, end),
+      };
+
+      setData(paginated);
     } catch (mockErr) {
-      console.error('Ошибка загрузки mock из public:', mockErr); //Такое собитие не возможно пока mock хранится в репозке
-      setData(null); // или как-то иначе обработать ошибку
+      console.error("Ошибка mock:", mockErr);
+      setData(null);
     }
   }
+  setLoading(false)
 }
 
 
@@ -49,15 +59,18 @@ export default function App() {
   const [loading, setLoading] = useState(true); // Для визуалки загрузки 
   const [editId, setEditId] = useState(null); // Для изменений
   const [status, setStatus] = useState(""); // 🔹 для сообщений (успех/ошибка)
+  const [page, setPage]=useState(1);//Страница (кол-фо)
+  const [pageSize, setPageSize]=useState(5);//Об'ектов на странице (кол-во)
+
 
   // Для того чтоб один раз запросить при рендере (может двоить из-за strik-мода в реакте, на проде должно бьіть все ок)
   useEffect(() => {
     (async () => {
       setLoading(true);
-      await fetchData(setData);
+      await fetchData(setData, setLoading, page, pageSize);
       setLoading(false);
     })();
-  }, []);
+  }, [page, pageSize]);
 
   //Удаление записи 
   const handleDelete = async (id) => {
@@ -65,9 +78,9 @@ export default function App() {
       setStatus("Удаление...");
 
       //Отправка запроса на удаление на сервер
-      const res = await fetch(`${API_URL}${id}/`, {
+      const res = await fetch(`${API.URL}${id}/`, {
         method: "DELETE",
-        headers: { Authorization: `Token ${TOKEN}` },
+        headers: { Authorization: `Token ${API.TOKEN} `},
       });
 
 
@@ -101,9 +114,9 @@ export default function App() {
       
       {/* Кнопка для перезапроса/обновления/синхронизации с сервером */}
       <button 
-        className="bg-amber-700 text-white h-[50px] w-[150px] rounded-md hover:bg-amber-800 transition"
-        onClick={() => fetchData(setData)}>Refresh</button>
-      {status && <span className="text-sm text-gray-600">{status}</span>}
+        className="bg-amber-700 text-white h-[50px] m-5 w-[150px] rounded-md hover:bg-amber-800 transition"
+        onClick={() => fetchData(setData, setLoading, page, pageSize)}>Refresh</button>
+      {status && <p className="text-sm m-2 text-gray-600">{status}</p>}
 
     {/* Добавление новой записи */}
     <AddRecord
@@ -119,14 +132,25 @@ export default function App() {
       {/* Вьівод data.result в виде списка */}
       <div className="m-4 text-lg">
         {loading ? 
-          (<span className="text-gray-500">Загрузка...</span>) : 
-          (<RecordList
+          (<LoaderOverlay/>) : 
+          (<>
+          
+          <Pagination
+            page={page}
+            setPage={setPage}
+            totalCount={data?.count || 0}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+          />
+          <RecordList
             data={data}
             editId={editId}
             setEditId={setEditId}
             setData={setData}
-            handleDelete={handleDelete}
-          />)}
+            handleDelete={handleDelete}/>
+          
+          </>
+          )}
       </div>
     </div>
   );
