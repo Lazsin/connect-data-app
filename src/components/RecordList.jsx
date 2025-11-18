@@ -69,8 +69,9 @@ export default function RecordList({ data, editId, setEditId, setData, handleDel
                         className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 disabled:opacity-50 flex items-center justify-center gap-2"
                         disabled={deletingId === item.id}
                       >
-                        {deletingId === item.id ? (
-                          <span className="loader w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                        {deletingId === item.id ? (<>
+                          Удалить
+                          <span className="loader w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span></>
                         ) : (
                           "Удалить"
                         )}

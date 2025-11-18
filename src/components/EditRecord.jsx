@@ -92,9 +92,15 @@ export default function EditRecord({ item, onSave, onCancel }) {
         <button
           onClick={handleSave}
           disabled={loading}
-          className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition disabled:opacity-50"
+          className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 disabled:opacity-50 flex items-center justify-center gap-2"
         >
-           Сохранить
+           {loading ? (<>
+                          Сохранить
+                          <span className="loader w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                        </>
+                        ) : (
+                          "Сохранить"
+                        )}
         </button>
         <button
           onClick={onCancel}
